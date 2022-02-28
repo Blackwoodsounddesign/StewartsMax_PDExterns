@@ -1,4 +1,4 @@
-# StewartsMax_PDExterns
+# Stewart's Max/PD Externs
  A repo of my Max/MSP and Pure Data externals. <br>
  Works in progress, half-written, fully written, etc.
  
