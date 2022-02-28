@@ -1,0 +1,96 @@
+#N canvas 328 123 878 515 12;
+#X obj 350 270 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X msg 347 297 \; pd dsp \$1;
+#X obj 146 390 *~;
+#X obj 165 353 hsl 128 15 0 1 0 0 empty empty OSCOPE_and_VOLUME -2
+-8 0 10 -262144 -1 -1 12700 1;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array oscope 1000 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 1 1000 -1 200 140 1;
+#X restore 344 354 graph;
+#X obj 146 439 tabwrite~ oscope;
+#X obj 191 380 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 3 137 readsf~;
+#X msg 19 104 start;
+#X msg 4 4 open /Users/stewart/Desktop/Ableton\ Samples/CinematicAmbience_Mini_SP/90_Cm_SweetTooth_SP_01.wav
+;
+#X obj 101 439 dac~;
+#X obj 85 115 hsl 128 15 0 1 0 0 empty empty Delay_level -2 -8 0 10
+-262144 -1 -1 12700 1;
+#X obj 191 401 metro 40;
+#X obj 291 167 hsl 128 15 0 20000 0 1 empty empty Lowpass_Filter -2
+-8 0 10 -262144 -1 -1 12700 1;
+#X obj 148 285 TapeDelay~;
+#X obj 291 205 hsl 128 15 1 9 0 0 empty empty Delay_Smoothing -2 -8
+0 10 -262144 -1 -1 12700 1;
+#X obj 116 149 hsl 128 15 0.25 3 0 1 empty empty Delay_Time -2 -8 0
+10 -262144 -1 -1 0 1;
+#X obj 289 238 hsl 128 15 0 10 0 0 empty empty LFO_Wavetable -2 -8
+0 10 -262144 -1 -1 0 1;
+#X text 21 41 Put some kind of sound in here.;
+#X text 371 272 DSP on/off;
+#X text 440 31 The first inlet is the signal you wish to delay.;
+#X text 441 54 The second inlet is delay level (Feedback & volume).
+;
+#X text 441 77 The third inlet is the delay time \, and since this
+is a tape delay effect \, there is a slow drift toward the "delay goal."
+;
+#X text 439 113 The fourth inlet is a lowpass filter included in the
+feedback loop.;
+#X text 441 148 The fifth inlet is the delay smoothing value. A high
+value will have the tapedelay slowly move to the delay destination
+and low will have the inverse effect.;
+#X text 441 6 This is a tape delay effect with various parameters.
+;
+#X text 440 200 The sixth inlet is a waveltable LFO adding in some
+AM modulation to at the output of the delay effect. There is also a
+some soft clipping distortion on the output to stop the volume from
+getting out of hand.;
+#X connect 0 0 1 0;
+#X connect 2 0 5 0;
+#X connect 2 0 10 0;
+#X connect 2 0 10 1;
+#X connect 3 0 2 1;
+#X connect 6 0 12 0;
+#X connect 7 0 14 0;
+#X connect 8 0 7 0;
+#X connect 9 0 7 0;
+#X connect 11 0 14 1;
+#X connect 12 0 5 0;
+#X connect 13 0 14 3;
+#X connect 14 0 2 0;
+#X connect 15 0 14 4;
+#X connect 16 0 14 2;
+#X connect 17 0 14 5;
