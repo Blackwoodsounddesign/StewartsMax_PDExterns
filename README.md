@@ -7,8 +7,11 @@
 # Panner5~
  5 channel spatializer. <br>
  
-# TapeDelay~
+# TapeDelay_Pedal_Idea~
  A tape delay with lowpass filter, an LFO, and some output distortion.  <br>
+ 
+ # TapeDelay_Pedal_Idea~
+ A standard Tapedelay plugin <br>
  
  # Wavetable~
   A wavetable C plugin. 
