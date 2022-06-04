@@ -8,51 +8,38 @@
 #endif
 
 #define tablesize (1024)
+#define twoPI (6.28318530718)
 
-/* ------------------------ dist~ ----------------------------- */
+/* ------------------------ swavetable~ ----------------------------- */
 
 static t_class *swavetable_class;
 
 typedef struct _swavetable
 {
+    // object
     t_object x_obj;
-    t_float x_f;
-    double OneO_N;
     
-    t_float ChebyCrossFadeVal;
-    t_float FMCrossFadeVal;
+    // one over samplerate
+    double OneO_N;
+    t_float x_f;
+    
+    t_float Freq;
     t_float phasor;
     double *sinetable;
-    
-    t_float DCval;
     
 } t_swavetable;
 
 void swavetable_float(t_swavetable *x, t_floatarg f)
 {
+    // input function for frequency
     
-    if(f < 0 || f > 1)
+    if(f < 0 || f > 20000)
     {
-        post("Please keep the values between 0 and 1.");
+        post("Please keep the values between 0 and 20000.");
         return;
-    }else
-    {
-        x->ChebyCrossFadeVal = f;
     }
-
-}
-
-void swavetable_in3(t_swavetable *x, t_floatarg g)
-{
-    
-    if(g < 0 || g > 300)
-    {
-        post("Please keep the values between 0 and 1.");
-        return;
-    }else
-    {
-        x->FMCrossFadeVal = g;
-    }
+    else
+        x->Freq = f;
 
 }
 
@@ -64,29 +51,34 @@ static t_int *swavetable_perform(t_int *w)
     
     int n = (int)(w[4]);
     double OneO_N = x->OneO_N;
-    float freq = x->FMCrossFadeVal;
+    float freq = x->Freq;
     
     while (n--)
     {
+        // the output variable is allocated here to keep it in scope
+        float waveout;
         
-        if(x->phasor + (OneO_N * freq)  <= 1.0){
+        // creating the phaser
+        if(x->phasor + (OneO_N * freq)  <= 1.0)
             x->phasor += (OneO_N * freq);
-        }else
+        else
             x->phasor += -1.0 + (OneO_N * freq);
         
-        int index = (x->phasor * 1024.0);
-        float waveout;
+        // variables for linear interpolation
+        float index = (x->phasor * 1024.0);
         int indextrunc = index;
         double delta = index - indextrunc;
         
+        // linear interpolation
         if(indextrunc == tablesize - 1)
             waveout = ((1 - delta) * *(x->sinetable + indextrunc)) + (delta * *(x->sinetable));
         else
             waveout = ((1 - delta) * *(x->sinetable + indextrunc)) + (delta * *(x->sinetable + (indextrunc + 1)));
         
+        // random unallocated input
         float f = *(in++);
-    
-         
+        
+        // output
         *out++ = waveout;
         
     }
@@ -96,8 +88,10 @@ static t_int *swavetable_perform(t_int *w)
 
 static void swavetable_dsp(t_swavetable *x, t_signal **sp)
 {
+    // the magic behind pd externs
     dsp_add(swavetable_perform, 4, x, sp[0]->s_vec, sp[1]->s_vec, (t_int)sp[0]->s_n);
     
+    // this grabs the sample rate
     x->OneO_N = 1 / sp[0]->s_sr;
 }
 
@@ -105,20 +99,17 @@ static void *swavetable_new(void)
 {
     t_swavetable *x = (t_swavetable *)pd_new(swavetable_class);
     
-    inlet_new(&x->x_obj, &x->x_obj.ob_pd, gensym("float"),gensym("float"));
-    inlet_new(&x->x_obj, &x->x_obj.ob_pd, gensym("float"),gensym("in3"));
     
+    inlet_new(&x->x_obj, &x->x_obj.ob_pd, gensym("float"),gensym("float"));
     outlet_new(&x->x_obj, gensym("signal"));
     
+    x->Freq = 0;
     x->x_f = 0;
-    x->ChebyCrossFadeVal = 0;
-    x->FMCrossFadeVal = 0;
     
-    //static int tablesize = 1024;
-    static double twoPI = 6.28318530718; // two pi
+    // allocate a table in memory
+    x->sinetable = (double *)malloc(tablesize * sizeof(double));
     
-    x->sinetable = (double *)malloc(tablesize * sizeof(double)); // allocate a table
-    
+    // fill the wavetable with a sine function from zero to 2 pi
     for(int i = 0; i < tablesize; i++)
         *(x->sinetable+i) = sin((twoPI*i)/tablesize);
     
@@ -127,17 +118,19 @@ static void *swavetable_new(void)
 
 static void swavetable_free(t_swavetable *x)
 {
+    // deallocate the memory
     free(x->sinetable);
 }
 
 void swavetable_tilde_setup(void)
 {
+    // this function creates a C class
     swavetable_class = class_new(gensym("swavetable~"), (t_newmethod)swavetable_new, (t_method)swavetable_free,
         sizeof(t_swavetable), 0, A_DEFFLOAT, 0);
 
     CLASS_MAINSIGNALIN(swavetable_class, t_swavetable, x_f);
-
+    
+    // these adds methods to our object
     class_addmethod(swavetable_class, (t_method)swavetable_dsp, gensym("dsp"), 0);
     class_addmethod(swavetable_class, (t_method)swavetable_float, gensym("float"), A_FLOAT, 0);
-    class_addmethod(swavetable_class, (t_method)swavetable_in3, gensym("in3"), A_FLOAT, 0);
 }
