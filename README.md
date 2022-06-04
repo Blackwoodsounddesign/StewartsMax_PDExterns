@@ -5,7 +5,10 @@
  Includes: 
  
 # Panner5~
- 5 channel spatializer <br>
+ 5 channel spatializer. <br>
  
 # TapeDelay~
- A tape delay with lowpass filter, an LFO, and some output distortion 
+ A tape delay with lowpass filter, an LFO, and some output distortion.  <br>
+ 
+ # Wavetable~
+  A wavetable C plugin. 
